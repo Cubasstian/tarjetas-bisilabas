@@ -85,7 +85,7 @@ function App() {
         {viewMode === 'single' ? (
           <div className="flex flex-col items-center gap-8">
             <div className="relative">
-              <Flashcard data={currentCard} isForExport />
+              <Flashcard data={currentCard} />
             </div>
 
             <button
