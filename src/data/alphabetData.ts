@@ -29,7 +29,7 @@ export const alphabetData: FlashcardData[] = [
   { letter: "T", word: "tigre", syllables: ["ti", "gre"], image: "https://cdn.jsdelivr.net/npm/openmoji@16.0.0/color/svg/1F42F.svg" },
   { letter: "U", word: "uva", syllables: ["u", "va"], image: "https://cdn.jsdelivr.net/npm/openmoji@16.0.0/color/svg/1F347.svg" },
   { letter: "V", word: "vaca", syllables: ["va", "ca"], image: "https://cdn.jsdelivr.net/npm/openmoji@16.0.0/color/svg/1F404.svg" },
-  { letter: "W", word: "wafle", syllables: ["wa", "fle"], image: "https://cdn.jsdelivr.net/npm/openmoji@16.0.0/color/svg/1F9C7.svg" },
+  { letter: "W", word: "waffle", syllables: ["wa", "ffle"], image: "https://cdn.jsdelivr.net/npm/openmoji@16.0.0/color/svg/1F9C7.svg" },
   { letter: "X", word: "xenón", syllables: ["xe", "nón"], image: "https://cdn.jsdelivr.net/npm/openmoji@16.0.0/color/svg/2697.svg" },
   { letter: "Y", word: "yoyo", syllables: ["yo", "yo"], image: "https://cdn.jsdelivr.net/npm/openmoji@16.0.0/color/svg/1FA80.svg" },
   { letter: "Z", word: "zorro", syllables: ["zo", "rro"], image: "https://cdn.jsdelivr.net/npm/openmoji@16.0.0/color/svg/1F98A.svg" }

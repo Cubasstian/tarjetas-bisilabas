@@ -16,14 +16,24 @@ export const LAYOUTS = {
 export type CardSizeKey = keyof typeof CARD_SIZES;
 export type LayoutKey   = keyof typeof LAYOUTS;
 
-const RENDER_W = 960; // fixed render width in px (height computed from ratio)
+// 600 px ≈ 190 DPI para tarjeta de 8 cm — calidad de impresión sin peso excessivo
+const RENDER_W = 600;
+// Calidad JPEG: 0.88 = excelente visual, ~70% más liviano que PNG
+const JPEG_QUALITY = 0.88;
+
+// Cache para evitar re-descargar el mismo SVG en cada tarjeta
+const _fetchCache = new Map<string, string>();
 
 async function fetchAsDataUrl(src: string): Promise<string> {
+  if (_fetchCache.has(src)) return _fetchCache.get(src)!;
   const response = await fetch(src);
   const blob = await response.blob();
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result as string);
+    reader.onload = () => {
+      _fetchCache.set(src, reader.result as string);
+      resolve(reader.result as string);
+    };
     reader.onerror = reject;
     reader.readAsDataURL(blob);
   });
@@ -128,7 +138,7 @@ export const exportSingleFlashcard = async (
       unit: 'mm',
       format: [width, height],
     });
-    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, width, height);
+    pdf.addImage(canvas.toDataURL('image/jpeg', JPEG_QUALITY), 'JPEG', 0, 0, width, height);
     pdf.save(filename);
   } catch (error) {
     console.error('Error exporting PDF:', error);
@@ -192,7 +202,7 @@ export const exportAllFlashcards = async (
       if (p > 0) {
         pdf.addPage([PAGE_W_MM, PAGE_H_MM], 'portrait');
       }
-      pdf.addImage(pageCanvas.toDataURL('image/png'), 'PNG', 0, 0, PAGE_W_MM, PAGE_H_MM);
+      pdf.addImage(pageCanvas.toDataURL('image/jpeg', JPEG_QUALITY), 'JPEG', 0, 0, PAGE_W_MM, PAGE_H_MM);
     }
 
     pdf.save('alfabeto-completo.pdf');
