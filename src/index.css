@@ -1,3 +1,43 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes slide-in-right {
+  from { transform: translateX(60px); opacity: 0; }
+  to   { transform: translateX(0);   opacity: 1; }
+}
+@keyframes slide-in-left {
+  from { transform: translateX(-60px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+@keyframes pop-in {
+  0%   { transform: scale(0.85); opacity: 0; }
+  70%  { transform: scale(1.04); }
+  100% { transform: scale(1);    opacity: 1; }
+}
+@keyframes sound-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50%      { transform: scaleY(1);   }
+}
+@keyframes confetti-fall {
+  0%   { transform: translateY(-10px) rotate(0deg);   opacity: 1; }
+  100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+@keyframes bounce-letter {
+  0%, 100% { transform: translateY(0);    }
+  40%      { transform: translateY(-8px); }
+  60%      { transform: translateY(-4px); }
+}
+@keyframes rainbow {
+  0%   { color: #ef4444; }
+  20%  { color: #f97316; }
+  40%  { color: #eab308; }
+  60%  { color: #22c55e; }
+  80%  { color: #3b82f6; }
+  100% { color: #a855f7; }
+}
+
+.animate-slide-in-right { animation: slide-in-right 0.3s ease-out both; }
+.animate-slide-in-left  { animation: slide-in-left  0.3s ease-out both; }
+.animate-pop-in         { animation: pop-in         0.35s ease-out both; }
+.animate-rainbow        { animation: rainbow 1.5s linear infinite; }

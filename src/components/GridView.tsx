@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Flashcard from './Flashcard';
 import ExportModal from './ExportModal';
 import { alphabetData } from '../data/alphabetData';
 import { exportAllFlashcards, CardSizeKey, LayoutKey } from '../utils/pdfExporter';
@@ -40,16 +39,35 @@ const GridView = ({ onSelectCard }: GridViewProps) => {
         </button>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-7 gap-3">
         {alphabetData.map((card, index) => (
           <div
             key={card.letter}
             onClick={() => onSelectCard(index)}
-            className="cursor-pointer transform transition-transform hover:scale-105"
+            className="cursor-pointer group"
           >
-            <div className="scale-[0.4] origin-top-left">
-              <div>
-                <Flashcard data={card} isForExport />
+            <div className="bg-white rounded-2xl border-[3px] border-black overflow-hidden shadow-md flex flex-col transition-transform duration-150 group-hover:scale-105 group-active:scale-95">
+              {/* Imagen */}
+              <div className="bg-amber-50 flex items-center justify-center p-2" style={{ aspectRatio: '1/1' }}>
+                <img
+                  src={card.image}
+                  alt={card.word}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              {/* Texto */}
+              <div className="flex flex-col items-center justify-center py-2 px-1 bg-white">
+                <span className="font-black text-gray-800 leading-none" style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.6rem)' }}>
+                  {card.letter}
+                </span>
+                <div className="flex flex-wrap justify-center gap-[2px] mt-0.5" style={{ fontSize: 'clamp(0.6rem, 1.8vw, 0.85rem)', fontWeight: 700 }}>
+                  {card.syllables.map((s, i) => (
+                    <span key={i}>
+                      {i > 0 && <span className="text-gray-400">-</span>}
+                      <span className={i === 0 ? 'text-red-600' : 'text-black'}>{s}</span>
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
