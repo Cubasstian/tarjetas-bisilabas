@@ -5,9 +5,10 @@ import AlphabetSelector from './components/AlphabetSelector';
 import GridView from './components/GridView';
 import ExportModal from './components/ExportModal';
 import Confetti from './components/Confetti';
+import MemoryGame from './components/MemoryGame';
 import { alphabetData } from './data/alphabetData';
 import { exportSingleFlashcard, CardSizeKey, LayoutKey } from './utils/pdfExporter';
-import { Download, Grid3x3, Square } from 'lucide-react';
+import { Download, Grid3x3, Square, Gamepad2 } from 'lucide-react';
 
 type AnimDir = 'left' | 'right' | null;
 
@@ -115,6 +116,16 @@ function App() {
         >
           <Grid3x3 size={18} /> Todas
         </button>
+        <button
+          onClick={() => setViewMode('game')}
+          className={`flex items-center gap-2 px-5 py-2.5 rounded-2xl font-bold text-sm sm:text-base transition-all shadow-sm ${
+            viewMode === 'game'
+              ? 'bg-purple-500 text-white shadow-md scale-105'
+              : 'bg-white text-gray-600 hover:bg-gray-50'
+          }`}
+        >
+          <Gamepad2 size={18} /> Juego
+        </button>
       </div>
 
       {viewMode === 'single' ? (
@@ -183,9 +194,13 @@ function App() {
             />
           </div>
         </div>
-      ) : (
+      ) : viewMode === 'grid' ? (
         <div className="px-4 pb-10">
           <GridView onSelectCard={handleSelectLetter} />
+        </div>
+      ) : (
+        <div className="px-4 pb-10 max-w-3xl mx-auto">
+          <MemoryGame />
         </div>
       )}
 
